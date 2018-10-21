@@ -67,8 +67,8 @@ const signup = (request, response) => {
     const savePromise = newAccount.save();
 
     savePromise.then(() => {
-        req.session.account = Account.AccountModel.toAPI(account);
-        res.json({ redirect: '/maker' })
+        req.session.account = Account.AccountModel.toAPI(newAccount);
+        return res.json({ redirect: '/maker' })
     });
 
     savePromise.catch((err) => {
