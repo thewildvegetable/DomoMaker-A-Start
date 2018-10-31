@@ -3,13 +3,14 @@ const models = require('../models');
 const Domo = models.Domo;
 
 const makeDomo = (req, res) => {
-  if (!req.body.name || !req.body.age) {
-    return res.status(400).json({ error: 'Both name and age are required' });
+  if (!req.body.name || !req.body.age || ! req.body.level) {
+    return res.status(400).json({ error: 'Name, age, and level are all required' });
   }
 
   const domoData = {
     name: req.body.name,
     age: req.body.age,
+    level: req.body.level,
     owner: req.session.account._id,
   };
 
