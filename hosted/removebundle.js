@@ -27,6 +27,8 @@ var removeDomo = function removeDomo(e) {
     //build our x-www-form-urlencoded format
     var formData = '_id=' + idField.value + '&_csrf=' + csrfField.value;
 
+    console.dir(formData);
+
     //send our request with the data
     xhr.send(formData);
 
@@ -81,8 +83,8 @@ var DomoList = function DomoList(props) {
                     method: 'POST',
                     className: 'removeDomoForm'
                 },
-                React.createElement('input', { name: '_id', type: 'hidden', value: domo._id, 'class': 'idField' }),
-                React.createElement('input', { name: '_csrf', type: 'hidden', value: props.csrf, 'class': 'csrfField' }),
+                React.createElement('input', { name: '_id', type: 'hidden', value: domo._id, className: 'idField' }),
+                React.createElement('input', { name: '_csrf', type: 'hidden', value: csrf, className: 'csrfField' }),
                 React.createElement('input', { className: 'makeDomoSubmit', type: 'submit', value: 'Remove' })
             )
         );
@@ -102,7 +104,9 @@ var loadDomosFromServer = function loadDomosFromServer() {
 };
 
 var setup = function setup(csrfToken) {
+    console.dir(csrfToken);
     csrf = csrfToken;
+    console.dir(csrf);
 
     ReactDOM.render(React.createElement(DomoList, { domos: [] }), document.querySelector("#domos"));
 

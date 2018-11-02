@@ -25,6 +25,8 @@ const removeDomo = (e) => {
     //build our x-www-form-urlencoded format
     const formData = `_id=${idField.value}&_csrf=${csrfField.value}`;
     
+    console.dir(formData);
+    
     //send our request with the data
     xhr.send(formData);
     
@@ -54,8 +56,8 @@ const DomoList = function(props) {
                       method="POST"
                       className="removeDomoForm"
                     >
-                    <input name="_id" type="hidden" value={domo._id}/>
-                    <input name="_csrf" type="hidden" value={props.csrf}/>
+                    <input name="_id" type="hidden" value={domo._id} className="idField"/>
+                    <input name="_csrf" type="hidden" value={csrf} className="csrfField"/>
                     <input className="makeDomoSubmit" type="submit" value="Remove" />
 
                 </form>
@@ -80,7 +82,9 @@ const loadDomosFromServer = () => {
 };
 
 const setup = function(csrfToken) {
+    console.dir(csrfToken);
     csrf = csrfToken;
+    console.dir(csrf);
     
     ReactDOM.render(
         <DomoList domos={[]} />, document.querySelector("#domos")
