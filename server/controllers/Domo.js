@@ -43,6 +43,17 @@ const makerPage = (req, res) => {
   });
 };
 
+const removerPage = (req, res) => {
+  Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred' });
+    }
+
+    return res.render('remove', { csrfToken: req.csrfToken(), domos: docs });
+  });
+};
+
 const getDomos = (request, response) => {
   const req = request;
   const res = response;
@@ -57,6 +68,22 @@ const getDomos = (request, response) => {
   });
 };
 
+const removeDomo = (request, response) => {
+    const req = request;
+    const res = response;
+    
+    return Domo.DomoModel.removeOne(req.body._id, (err, docs) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).json({ error: 'An error occurred' });
+        }
+
+        return res.json({ domos: docs });
+    })
+};
+
 module.exports.makerPage = makerPage;
 module.exports.make = makeDomo;
+module.exports.removerPage = removerPage;
+module.exports.remove = removeDomo;
 module.exports.getDomos = getDomos;
