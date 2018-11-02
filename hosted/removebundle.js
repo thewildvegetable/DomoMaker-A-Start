@@ -11,26 +11,12 @@ var removeDomo = function removeDomo(e) {
     var idField = domoForm.querySelector('.idField');
     var csrfField = domoForm.querySelector('.csrfField');
 
-    console.dir(domoForm);
-    console.dir(idField);
-    console.dir(csrfField);
-
-    //create a new Ajax request (remember this is asynchronous)
-    var xhr = new XMLHttpRequest();
-    //set the method (POST) and url (action field from form)
-    xhr.open('POST', domoForm.action);
-
-    xhr.onload = function () {
-        loadDomosFromServer();
-    };
-
     //build our x-www-form-urlencoded format
     var formData = '_id=' + idField.value + '&_csrf=' + csrfField.value;
 
-    console.dir(formData);
-
-    //send our request with the data
-    xhr.send(formData);
+    sendAjax('POST', '/remove', formData, function () {
+        loadDomosFromServer();
+    });
 
     return false;
 };
